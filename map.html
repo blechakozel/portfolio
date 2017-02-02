@@ -1,0 +1,34 @@
+<html>
+	
+	<!-- Aaron Blecha Geog 485/585 Spring 2017 -->
+	
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Geography 485 Template</title>
+		
+		<!-- If you would like to use an external CSS stylesheet for this and other pages in your site uncomment the following line and create a file called "styles.css" with your styles in the home directory of your portfolio -->
+		<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+		
+		<!-- you can create styles local to this page by putting them in the following style block -->
+		<style type=text/css>
+			
+		</style>
+   <script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+        var fleish = new google.maps.LatLng(118000, 3000180)
+        var myOptions = {zoom: 9,center: CEZ,MapTypeId: google.maps.MapTypeId.HYBRID};
+        var map = new google.maps.Map(document.getElementById("map_CEZ"),myOptions);}
+    </script>
+	</head>
+	<body>
+		<h1>Embedded map test...</h1>
+		<p>Chernobyl Exclusion Zone</p>
+    <p> <div id="map_CEZ"></div></p>
+
+		
+	</body>
+</html>

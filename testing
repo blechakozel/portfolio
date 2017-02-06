@@ -16,7 +16,7 @@
  function when done -->
 
  <script async defer
- src="https://maps.googleapis.com/maps/api/js?callback=initialize&key=<mykey>">
+ src="https://maps.googleapis.com/maps/api/js?callback=initialize&key=AIzaSyAXKOLRDzcB_P4OgqDg7-rygObjVlMPsSM">
  </script>
  </body>
  </html>

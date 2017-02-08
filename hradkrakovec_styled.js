@@ -1,11 +1,10 @@
 function initialize() {
-var map;
-      function initalize() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 49.99365940933694, lng: 13.59859695434567},
+        var map = new google.maps.LatLng(49.99365940933694, : 13.59859695434567)
+        var myOptions = {
           zoom: 13
-        });
-      }
+          center: {latlng (49.99365940933694, : 13.59859695434567)
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+
 styles:[
   {
     "featureType": "administrative.locality",

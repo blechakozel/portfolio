@@ -6,7 +6,89 @@
    <title>Hrad Krakovec</title>
    <h1>Hrad Kraovec and Surrounding Region</h1>
     <div id="map"></div>
-   <script src="js/hradkrakovec_styled.js"></script>
+    <script type="text/javascript">
+        src="http://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+        var map = new google.maps.LatLng(49.99365940933694, : 13.59859695434567)
+        var myOptions = {
+          zoom: 13
+          center: {latlng (49.99365940933694, : 13.59859695434567)
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+styles:[
+  {
+    "featureType": "administrative.locality",
+    "stylers": [
+      {
+        "color": "#000080"
+      },
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.province",
+    "stylers": [
+      {
+        "color": "#ff0000"
+      },
+      {
+        "weight": 0.5
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.province",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "saturation": 5
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "stylers": [
+      {
+        "color": "#b4e47e"
+      },
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "color": "#ff0000"
+      },
+      {
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  }
+]
+var map = new google.maps.Map(
+ document.getElementById("map"),
+myOptions); 
+}
+</script>
+
+
+
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXKOLRDzcB_P4OgqDg7-rygObjVlMPsSM&callback=initMap"
     async defer></script>

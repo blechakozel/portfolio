@@ -1,75 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport"></meta>
-<title>Events of Interest in the Ukraine Conflict</title>
-<style type="text/css">
-html, body, #googft-mapCanvas {
-
-}
-</style>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxCeheKpU3hUxow9jsMkwv6Vh6KEWjPYM&callback=initMap"
-    async defer></script>
-
-<script type="text/javascript">
-  function initialize() {
-    google.maps.visualRefresh = true;
-    var isMobile = (navigator.userAgent.toLowerCase().indexOf('android') > -1) ||
-      (navigator.userAgent.match(/(iPod|iPhone|iPad|BlackBerry|Windows Phone|iemobile)/));
-    if (isMobile) {
-      var viewport = document.querySelector("meta[name=viewport]");
-      viewport.setAttribute('content', 'initial-scale=1.0, user-scalable=no');
-    }
-    var mapDiv = document.getElementById('googft-mapCanvas');
-    mapDiv.style.width = isMobile ? '100%' : '500px';
-    mapDiv.style.height = isMobile ? '100%' : '300px';
-    var map = new google.maps.Map(mapDiv, {
-      center: new google.maps.LatLng(50.28851419123948, 33.095481506347596),
-      zoom: 5,
-      mapTypeId: google.maps.MapTypeId.HYBRID
-    });
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
-
-    layer = new google.maps.FusionTablesLayer({
-      map: map,
-      heatmap: { enabled: false },
-      query: {
-        select: "col2",
-        from: "1scpqpjH_WN9Rg-pY1oo5FpNQlkhFauYbbKKepW6G",
-        where: ""
-      },
-      options: {
-        styleId: 2,
-        templateId: 2
+  <head>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
       }
-    });
-
-    if (isMobile) {
-      var legend = document.getElementById('googft-legend');
-      var legendOpenButton = document.getElementById('googft-legend-open');
-      var legendCloseButton = document.getElementById('googft-legend-close');
-      legend.style.display = 'none';
-      legendOpenButton.style.display = 'block';
-      legendCloseButton.style.display = 'block';
-      legendOpenButton.onclick = function() {
-        legend.style.display = 'block';
-        legendOpenButton.style.display = 'none';
-      }
-      legendCloseButton.onclick = function() {
-        legend.style.display = 'none';
-        legendOpenButton.style.display = 'block';
-      }
-    }
-  }
-
-  google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-</head>
-
-<body>
-  <p>Points of Interest in the Ukraine Conflict</p>
-  <div id="googft-mapCanvas"></div>
-</body>
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATmtybZ-Qhq1YJJOjLjgfm5z375CTGkhg&callback=initMap">
+    </script>
+  </body>
 </html>

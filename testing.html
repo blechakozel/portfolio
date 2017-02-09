@@ -19,11 +19,41 @@
           center: ukraine
         });
         var marker = new google.maps.Marker({
-          position: {Lat: 50.4019514,Lng: 30.3926095},
-          map: map
-        });
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        }
+
+        var features = [
+          {
+            position: new google.maps.LatLng(-33.91721, 151.22630),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91539, 151.22820),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91747, 151.22912),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91910, 151.22907),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91725, 151.23011),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91872, 151.23089),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91784, 151.23094),
+            type: 'info'
+        }
+        ];
+
+        for (var i = 0, feature; feature = features[i]; i++) {
+          addMarker(feature);
+        }
       }
-    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATmtybZ-Qhq1YJJOjLjgfm5z375CTGkhg&callback=initMap">
     </script>

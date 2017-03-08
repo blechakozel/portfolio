@@ -4,7 +4,7 @@
     <style>
       {
     background-color: lightblue;
-    background-image: url("ukkrainewide.JPG");
+    background-image: url("ukrainewide.JPG");
     background-repeat: no-repeat;
     background-position: center top;
     background-attachment: fixed;
@@ -30,7 +30,8 @@
         var ukraine = {lat: 49.631909, lng: 30.505408};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 5,
-          center: ukraine
+          center: ukraine,
+          mapTypeId: google.maps.MapTypeId.HYBRID
         });
         var marker = new google.maps.Marker({
             position:  new google.maps.LatLng(50.4019514,30.3926095),

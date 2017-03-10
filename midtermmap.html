@@ -32,11 +32,31 @@
           center: map,
           mapTypeId: google.maps.MapTypeId.HYBRID
         });
+        
+        var text = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Pueblo Bonito</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Pueblo Bonito</b>(Spanish for beautiful town), the largest and best-known great house in Chaco Culture National Historical Park, northern New Mexico, was built by the Ancestral Puebloans, who occupied the structure between AD 828 and 1126. </p>'+
+            '<a href="https://en.wikipedia.org/wiki/Pueblo_Bonito">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            ).</p>'+
+            '</div>'+
+            '</div>';
+        var infowindow = new google.maps.InfoWindow({
+          content: text
+           });
+        
         var marker = new google.maps.Marker({
             position:  new google.maps.LatLng(36.060574,-107.961692),
             map: map,
            title:"Pueblo Bonito"
           });
+        
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
         
         }
       

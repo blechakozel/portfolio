@@ -14,24 +14,25 @@
   <body>
     <h1>My Map</h1>
     <div id="map"></div>
-     <script type="text/javascript">
-   var map = new ol.Map({
-     target: 'map',
-     layers: [
-       new ol.layer.Tile({
-         source: new ol.source.OSM()
-       })
-     ],
-     view: new ol.View({
-       center: ol.proj.fromLonLat([126.97, 37.56]),
-       zoom: 9
-     }),
-     controls: ol.control.defaults({
-       attributionOptions: {
-         collapsible: false
-       }
-     })
-   });
- </script>
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            title: 'Global Imagery',
+            source: new ol.source.TileWMS({
+              url: 'http://demo.opengeo.org/geoserver/wms',
+              params: {LAYERS: 'nasa:bluemarble', VERSION: '1.1.1'}
+            })
+          })
+        ],
+        view: new ol.View({
+          projection: 'EPSG:4326',
+          center: [0, 0],
+          zoom: 0,
+          maxResolution: 0.703125
+        })
+      });
+    </script>
   </body>
 </html>

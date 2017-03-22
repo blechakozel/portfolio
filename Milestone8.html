@@ -18,7 +18,7 @@
 }
       .map {
         height: 400px;
-        width: 100%;
+        width: 800px;
       }
     </style>
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
@@ -26,6 +26,13 @@
   <body>
     <h1>text...</h1>
     <div id="map" class="map"></div>
+    <select id="units">
+      <option value="degrees">degrees</option>
+      <option value="imperial">imperial inch</option>
+      <option value="us">us inch</option>
+      <option value="nautical">nautical mile</option>
+      <option value="metric" selected>metric</option>
+    </select>
     <form class="form-inline">
       <label>Geometry type &nbsp;</label>
       <select id="type">
@@ -37,11 +44,21 @@
       </select>
     </form>
     <script>
+      var scaleLineControl = new ol.control.ScaleLine();
+
       var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
 
       var source = new ol.source.Vector({wrapX: false});
+      ({
+        controls: ol.control.defaults({
+          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+            collapsible: false
+          })
+        }).extend([
+          scaleLineControl
+        ]),
 
       var vector = new ol.layer.Vector({
         source: source

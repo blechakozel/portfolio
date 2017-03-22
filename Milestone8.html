@@ -56,7 +56,7 @@
         layers: [raster, vector],
         target: 'map',
         view: new ol.View({
-          center: [-11000000, 4600000],
+          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
           zoom: 4
         })
       });

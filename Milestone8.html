@@ -51,14 +51,6 @@
       });
 
       var source = new ol.source.Vector({wrapX: false});
-      ({
-        controls: ol.control.defaults({
-          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-            collapsible: false
-          })
-        }).extend([
-          scaleLineControl
-        ]),
 
       var vector = new ol.layer.Vector({
         source: source

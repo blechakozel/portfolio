@@ -42,22 +42,25 @@
       </select>
     </form>
     <script>
-      var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
+      ar key = 'AmM9TvOfs4fxgECriPxmww_PbadoO8As9RGGm4v7FaJSlE7RZaJ2kgzmVA1oYBzS';
+
+      var imagery = new ol.layer.Tile({
+        source: new ol.source.BingMaps({key: key, imagerySet: 'Aerial'})
       });
 
-      var source = new ol.source.Vector({wrapX: false});
-
-      var vector = new ol.layer.Vector({
-        source: source
-      });
+      var container = document.getElementById('map');
 
       var map = new ol.Map({
-        layers: [raster, vector],
-        target: 'map',
+        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+      collapsible: false
+    })
+  }).extend([
+    magnCntrl
+  ]),
+        layers: [imagery],
+        target: container,
         view: new ol.View({
-          center: [35.090939, -106.606926],
-          
+          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
           zoom: 14
         })
       });

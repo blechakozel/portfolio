@@ -36,14 +36,10 @@
         <option value="Circle">Circle</option>
         <option value="None">None</option>
       </select>
-      <select id="units">
-      <option value="degrees">degrees</option>
-      <option value="imperial">imperial inch</option>
-      <option value="us">us inch</option>
-      <option value="metric" selected>metric</option>
-    </select>
+
     </form>
     <script>
+      
       var scaleLineControl = new ol.control.ScaleLine();
 
       var raster = new ol.layer.Tile({
@@ -55,6 +51,7 @@
       var vector = new ol.layer.Vector({
         source: source
       });
+      var container = document.getElementById('map');
 
       var map = new ol.Map({
         controls: ol.control.defaults({

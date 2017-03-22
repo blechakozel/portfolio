@@ -1,31 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Magnify</title>
+    <title>Draw Features</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
   </head>
-   <style>
-    body
-   {
-    background-color: lightblue;
-    background-image: url("...");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-attachment: fixed;
-    margin-left: 100px;
-    margin-right:500px;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-     
-      #map {
-    height: 500px;
-    width: 1000px;
-    margin-top: 20px;
-   
-    }
-    </style>
   <body>
     <div id="map" class="map"></div>
     <form class="form-inline">
@@ -35,108 +16,30 @@
         <option value="LineString">LineString</option>
         <option value="Polygon">Polygon</option>
         <option value="Circle">Circle</option>
-        <option value="radius">Zoom</option>
         <option value="None">None</option>
       </select>
     </form>
     <script>
-      var key = 'AmM9TvOfs4fxgECriPxmww_PbadoO8As9RGGm4v7FaJSlE7RZaJ2kgzmVA1oYBzS';
-
-      var imagery = new ol.layer.Tile({
-        source: new ol.source.BingMaps({key: key, imagerySet: 'Aerial'})
+      var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
       });
 
-      var container = document.getElementById('map');
+      var source = new ol.source.Vector({wrapX: false});
+
+      var vector = new ol.layer.Vector({
+        source: source
+      });
 
       var map = new ol.Map({
-        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-      collapsible: false
-    })
-  }).extend([
-    magnCntrl
-  ]),
-        layers: [imagery],
-        target: container,
+        layers: [raster, vector],
+        target: 'map',
         view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 14
+          center: [-11000000, 4600000],
+          zoom: 4
         })
       });
-      
-      var magnCntrl = new ol.control.MagnifierControl({ 
-//scaleOffSet:2,
-//layers:[imagery]
-});
 
-      var radius = 75;
-      document.addEventListener('keydown', function(evt) {
-        if (evt.which === 38) {
-          radius = Math.min(radius + 5, 150);
-          map.render();
-          evt.preventDefault();
-        } else if (evt.which === 40) {
-          radius = Math.max(radius - 5, 25);
-          map.render();
-          evt.preventDefault();
-        }
-      });
-
-      // get the pixel position with every move
-      var mousePosition = null;
-
-      container.addEventListener('mousemove', function(event) {
-        mousePosition = map.getEventPixel(event);
-        map.render();
-      });
-
-      container.addEventListener('mouseout', function() {
-        mousePosition = null;
-        map.render();
-      });
-
-      // after rendering the layer, show an oversampled version around the pointer
-      imagery.on('postcompose', function(event) {
-        if (mousePosition) {
-          var context = event.context;
-          var pixelRatio = event.frameState.pixelRatio;
-          var half = radius * pixelRatio;
-          var centerX = mousePosition[0] * pixelRatio;
-          var centerY = mousePosition[1] * pixelRatio;
-          var originX = centerX - half;
-          var originY = centerY - half;
-          var size = 2 * half + 1;
-          var sourceData = context.getImageData(originX, originY, size, size).data;
-          var dest = context.createImageData(size, size);
-          var destData = dest.data;
-          for (var j = 0; j < size; ++j) {
-            for (var i = 0; i < size; ++i) {
-              var dI = i - half;
-              var dJ = j - half;
-              var dist = Math.sqrt(dI * dI + dJ * dJ);
-              var sourceI = i;
-              var sourceJ = j;
-              if (dist < half) {
-                sourceI = Math.round(half + dI / 2);
-                sourceJ = Math.round(half + dJ / 2);
-              }
-              var destOffset = (j * size + i) * 4;
-              var sourceOffset = (sourceJ * size + sourceI) * 4;
-              destData[destOffset] = sourceData[sourceOffset];
-              destData[destOffset + 1] = sourceData[sourceOffset + 1];
-              destData[destOffset + 2] = sourceData[sourceOffset + 2];
-              destData[destOffset + 3] = sourceData[sourceOffset + 3];
-            }
-          }
-          context.beginPath();
-          context.arc(centerX, centerY, half, 0, 2 * Math.PI);
-          context.lineWidth = 3 * pixelRatio;
-          context.strokeStyle = 'rgba(255,255,255,0.5)';
-          context.putImageData(dest, originX, originY);
-          context.stroke();
-          context.restore();
-        }
-      });
-       var typeSelect = document.getElementById('type');
+      var typeSelect = document.getElementById('type');
 
       var draw; // global so we can remove it later
       function addInteraction() {

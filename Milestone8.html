@@ -3,12 +3,20 @@
   <head>
     <title>Magnify</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
-    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
   </head>
   <body>
     <div id="map" class="map"></div>
+    <form class="form-inline">
+      <label>Geometry type &nbsp;</label>
+      <select id="type">
+        <option value="Point">Point</option>
+        <option value="LineString">LineString</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Circle">Circle</option>
+        <option value="None">None</option>
+      </select>
+    </form>
     <script>
       var key = 'AmM9TvOfs4fxgECriPxmww_PbadoO8As9RGGm4v7FaJSlE7RZaJ2kgzmVA1oYBzS';
 
@@ -23,7 +31,7 @@
         target: container,
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 13
+          zoom: 15
         })
       });
 
@@ -95,6 +103,30 @@
           context.restore();
         }
       });
+       var typeSelect = document.getElementById('type');
+
+      var draw; // global so we can remove it later
+      function addInteraction() {
+        var value = typeSelect.value;
+        if (value !== 'None') {
+          draw = new ol.interaction.Draw({
+            source: source,
+            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
+          });
+          map.addInteraction(draw);
+        }
+      }
+
+
+      /**
+       * Handle change event.
+       */
+      typeSelect.onchange = function() {
+        map.removeInteraction(draw);
+        addInteraction();
+      };
+
+      addInteraction();
     </script>
   </body>
 </html>

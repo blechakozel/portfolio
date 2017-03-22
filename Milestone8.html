@@ -9,7 +9,7 @@
     body
    {
     background-color: lightblue;
-    background-image: url("chernobyl.JPG");
+    background-image: url("...");
     background-repeat: no-repeat;
     background-position: right top;
     background-attachment: fixed;
@@ -20,15 +20,11 @@
 }
      
       #map {
-        height: 80%;
-      }
-     
-      html, body {
-        height: 500px;
+    height: 500px;
     width: 1000px;
-        margin-top: 20;
-         margin-bottom: 20px;
-      }
+    margin-top: 20px;
+   
+    }
     </style>
   <body>
     <div id="map" class="map"></div>
@@ -56,7 +52,7 @@
         target: container,
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 15
+          zoom: 14
         })
       });
 

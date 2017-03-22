@@ -58,6 +58,12 @@
       });
 
       var map = new ol.Map({
+        controls: ol.control.defaults({
+          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+            collapsible: false
+          })
+        }).extend([
+          scaleLineControl
         layers: [raster, vector],
         target: 'map',
         view: new ol.View({

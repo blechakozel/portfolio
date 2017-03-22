@@ -1,72 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Draw Features</title>
+    <title>Magnify</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
-    <style>
-      body
-   {
-    background-color: lightblue;
-    background-image: url(".....");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-attachment: fixed;
-    margin-left: 100px;
-    margin-right:500px;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-      .map {
-        height: 400px;
-        width: 800px;
-      }
-    </style>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
   </head>
   <body>
-    <h1>text...</h1>
     <div id="map" class="map"></div>
-    
-    <form class="form-inline">
-      <label>Geometry type &nbsp;</label>
-      <select id="type">
-        <option value="Point">Point</option>
-        <option value="LineString">LineString</option>
-        <option value="Polygon">Polygon</option>
-        <option value="Circle">Circle</option>
-        <option value="None">None</option>
-      </select>
-
-    </form>
     <script>
-      
-      var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
+      var key = 'AmM9TvOfs4fxgECriPxmww_PbadoO8As9RGGm4v7FaJSlE7RZaJ2kgzmVA1oYBzS';
+
+      var imagery = new ol.layer.Tile({
+        source: new ol.source.BingMaps({key: key, imagerySet: 'Aerial'})
       });
 
-      var source = new ol.source.Vector({wrapX: false});
-
-      var vector = new ol.layer.Vector({
-        source: source
-      });
       var container = document.getElementById('map');
 
       var map = new ol.Map({
-        controls: ol.control.defaults({
-          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-            collapsible: false
-          })
-        }).extend([
-          scaleLineControl
-          ]),
-        layers: [raster, vector],
-        target: 'map',
+        layers: [imagery],
+        target: container,
         view: new ol.View({
-          center: [-106.600, 35.0912],
-          zoom: 13
+          center: ol.proj.fromLonLat([-109, 46.5]),
+          zoom: 6
         })
       });
-     var radius = 75;
+
+      var radius = 75;
       document.addEventListener('keydown', function(evt) {
         if (evt.which === 38) {
           radius = Math.min(radius + 5, 150);
@@ -134,37 +95,6 @@
           context.restore();
         }
       });
-      var unitsSelect = document.getElementById('units');
-      function onChange() {
-        scaleLineControl.setUnits(unitsSelect.value);
-      }
-      unitsSelect.addEventListener('change', onChange);
-      onChange();
-
-      var typeSelect = document.getElementById('type');
-
-      var draw; // global so we can remove it later
-      function addInteraction() {
-        var value = typeSelect.value;
-        if (value !== 'None') {
-          draw = new ol.interaction.Draw({
-            source: source,
-            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
-          });
-          map.addInteraction(draw);
-        }
-      }
-
-
-      /**
-       * Handle change event.
-       */
-      typeSelect.onchange = function() {
-        map.removeInteraction(draw);
-        addInteraction();
-      };
-
-      addInteraction();
     </script>
   </body>
 </html>

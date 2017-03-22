@@ -72,6 +72,12 @@
           zoom: 4
         })
       });
+      var unitsSelect = document.getElementById('units');
+      function onChange() {
+        scaleLineControl.setUnits(unitsSelect.value);
+      }
+      unitsSelect.addEventListener('change', onChange);
+      onChange();
 
       var typeSelect = document.getElementById('type');
 

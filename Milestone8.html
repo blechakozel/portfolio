@@ -30,9 +30,10 @@
     </style>
 
   <body>
+    <h1>Mesa Vista Sub-division</h1>
     <div id="map" class="map"></div>
     <form class="form-inline">
-      <label>Geometry type &nbsp;</label>
+      <label>Marker Type &nbsp;</label>
       <select id="type">
         <option value="Point">Point</option>
         <option value="LineString">LineString</option>
@@ -57,7 +58,7 @@
         target: 'map',
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 14
+          zoom: 13
         })
       });
 

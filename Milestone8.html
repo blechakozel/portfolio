@@ -49,6 +49,12 @@
       var container = document.getElementById('map');
 
       var map = new ol.Map({
+        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+      collapsible: false
+    })
+  }).extend([
+    magnCntrl
+  ]),
         layers: [imagery],
         target: container,
         view: new ol.View({
@@ -56,6 +62,11 @@
           zoom: 14
         })
       });
+      
+      var magnCntrl = new ol.control.MagnifierControl({ 
+//scaleOffSet:2,
+//layers:[imagery]
+});
 
       var radius = 75;
       document.addEventListener('keydown', function(evt) {

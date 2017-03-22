@@ -7,28 +7,6 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
   </head>
-     <style>
-    body
-   {
-    background-color: lightblue;
-    background-image: url("...");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-attachment: fixed;
-    margin-left: 100px;
-    margin-right:500px;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-     
-      #map {
-    height: 500px;
-    width: 1000px;
-    margin-top: 20px;
-   
-    }
-    </style>
-
   <body>
     <div id="map" class="map"></div>
     <form class="form-inline">
@@ -42,26 +20,22 @@
       </select>
     </form>
     <script>
-      ar key = 'AmM9TvOfs4fxgECriPxmww_PbadoO8As9RGGm4v7FaJSlE7RZaJ2kgzmVA1oYBzS';
-
-      var imagery = new ol.layer.Tile({
-        source: new ol.source.BingMaps({key: key, imagerySet: 'Aerial'})
+      var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
       });
 
-      var container = document.getElementById('map');
+      var source = new ol.source.Vector({wrapX: false});
+
+      var vector = new ol.layer.Vector({
+        source: source
+      });
 
       var map = new ol.Map({
-        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-      collapsible: false
-    })
-  }).extend([
-    magnCntrl
-  ]),
-        layers: [imagery],
-        target: container,
+        layers: [raster, vector],
+        target: 'map',
         view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 14
+          center: [-11000000, 4600000],
+          zoom: 4
         })
       });
 

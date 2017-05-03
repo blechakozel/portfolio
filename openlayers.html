@@ -15,18 +15,82 @@
     <h2>My Map</h2>
     <div id="map" class="map"></div>
     <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-106.6056,35.085]),
-          zoom: 10
-        })
-      });
-    </script>
+      var lon = -109.5;
+        var lat = 36.5;
+        var zoom = 5;
+        var map, layer1, layer2, layer3, layer4, layer5, layer6;
+        function init(){
+            map = new OpenLayers.Map( 'map' );
+            
+            layer1 = new OpenLayers.Layer.WMS(
+            	"soilFS",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers:'gsmsoilmu_a_co,gsmsoilmu_a_nm,gsmsoilmu_a_ut,gsmsoilmu_a_az'
+				}, 
+				isBaseLayer="True");
+            
+            layer2 = new OpenLayers.Layer.WMS( 
+            	"lijuan_huc",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers: 'huc', 
+					transparent:'True'
+					
+				}, 
+				{
+					isBaseLayer: false
+				});
+            
+            layer3 = new OpenLayers.Layer.WMS( 
+            	"stream_projected",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers:'stream', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer4 = new OpenLayers.Layer.WMS( 
+            	"gage stations",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers:'gage_stations', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer5 = new OpenLayers.Layer.WMS( 
+            	"grids",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers:'grids', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer6 = new OpenLayers.Layer.WMS( 
+            	"vegepolygon",
+				"http://129.24.63.138/geoserver/wms", 
+				{
+					layers:'vegepolygon', 
+					
+				}, 
+				
+					isBaseLayer="True");
+            map.addLayer(layer1);
+            map.addLayer(layer2);
+            map.addLayer(layer3);
+			map.addLayer(layer4);
+			map.addLayer(layer5);
+			map.addLayer(layer6);
+            map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+            map.addControl(new OpenLayers.Control.LayerSwitcher() );
+        }
+	</script>
+ 
   </body>
 </html>

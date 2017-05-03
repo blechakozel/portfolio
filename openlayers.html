@@ -1,21 +1,40 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
   <head>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
-    <style>
-      .map {
-        height: 600px;
-        width: 1000px;
-      }
+    <title>Draw Features</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
+  </head> 
+  <style>
+    body
+   {
+    background-color: lightblue;
+    background-image: url("...");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    margin-left: 100px;
+    margin-right:500px;
+    margin-top:80px;
+    margin-bottom:100px;
+}
+     
+      #map {
+    height: 500px;
+    width: 1000px;
+    margin-top: 20px;
+   
+    }
     </style>
-    <script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
-    <title>OpenLayers example</title>
-  </head>
+
   <body>
-    <h2>My Map</h2>
+    <h1>Mesa Vista Sub-division</h1>
     <div id="map" class="map"></div>
-	  <form class="form-inline">
-      <label>Geometry type &nbsp;</label>
+    <form class="form-inline">
+      <label>Marker Type &nbsp;</label>
       <select id="type">
         <option value="Point">Point</option>
         <option value="LineString">LineString</option>
@@ -24,20 +43,27 @@
         <option value="None">None</option>
       </select>
     </form>
-    <script type="text/javascript">
+    <script>
+      var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+
+      var source = new ol.source.Vector({wrapX: false});
+
+      var vector = new ol.layer.Vector({
+        source: source
+      });
+
       var map = new ol.Map({
+        layers: [raster, vector],
         target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([-106.6056, 35.085]),
-          zoom: 10
-	})
-        });
-	    var typeSelect = document.getElementById('type');
+          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
+          zoom: 13
+        })
+      });
+
+      var typeSelect = document.getElementById('type');
 
       var draw; // global so we can remove it later
       function addInteraction() {

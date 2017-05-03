@@ -62,6 +62,16 @@
           zoom: 11
         })
       });
+      
+       var wms = new OpenLayers.Layer.WMS( "OpenLayers WMS", "labs.metacarta.com/wms/vmap0";, {layers: 'basic'} );
+ var twms = new OpenLayers.Layer.WMS( "World Map", "localhost:8080/geoserver/wms?service=WMS&version=1.1.1& request=GetCapabilities&", 
+ { 
+     map: 'hospitals', 
+     transparent: 'true', 
+     layers: 'hospitals'
+ } ); 
+ map.addLayers([wms, twms]);
+
 
       var typeSelect = document.getElementById('type');
 

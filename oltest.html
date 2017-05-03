@@ -1,115 +1,16 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-	  <title>ol test page...</title>
-	  <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
-	   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
-    <script type="text/javascript">
-         var lon = -106.606926;
-        var lat = 35.090939;
-        var zoom = 11;
-	      var typeSelect = document.getElementById('type');
-      var draw; // global so we can remove it later
-      function addInteraction() {
-        var value = typeSelect.value;
-        if (value !== 'None') {
-          draw = new ol.interaction.Draw({
-            source: source,
-            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
-          });
-          map.addInteraction(draw);
-        }
-      }
-      /**
-       * Handle change event.
-       */
-      typeSelect.onchange = function() {
-        map.removeInteraction(draw);
-        addInteraction();
-      };
-      addInteraction();
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Basic map</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
 
-        var map, layer1, layer2, layer3, layer4, layer5, layer6;
-        function init(){
-            map = new OpenLayers.Map( 'map' );
-            
-            layer1 = new OpenLayers.Layer.WMS(
-            	"Imagery",
-				"http://edacwms.unm.edu/cgi-bin/mapfiles/bmng", 
-				{
-					layers:'bmng8km,bmng2km,bmng500mA1,bmng500mB1,landsat,doqq05,doqq06,doqq06_gaps'
-				}, 
-				isBaseLayer="True");
-            
-            layer2 = new OpenLayers.Layer.WMS( 
-            	"County Boundaries",
-				"http://gstore.unm.edu/apps/rgis/datasets/97810/services/ogc/wms?", 
-				{
-					layers: '2007fe_35_county00', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-            
-            layer3 = new OpenLayers.Layer.WMS( 
-            	"NM GPS Roads",
-				"http://gstore.unm.edu/apps/rgis/datasets/58292/services/ogc/wms?", 
-				{
-					layers:'gpsrdsddshp', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-           
-			
-			layer4 = new OpenLayers.Layer.WMS( 
-            	"CSG Basins",
-				"http://129.24.63.138/geoserver/wms?", 
-				{
-					layers:'StephenB:CSGBasins', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-            
-			
-			layer5 = new OpenLayers.Layer.WMS( 
-            	"CSG Gages",
-				"http://129.24.63.138/geoserver/wms?", 
-				{
-					layers:'StephenB:CSG_Gages', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-            
-			
-			layer6 = new OpenLayers.Layer.WMS( 
-            	"NHD Streams",
-				"http://129.24.63.138/geoserver/wms?", 
-				{
-					layers:'StephenB:BasinNHDFlow', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-            map.addLayer(layer1);
-            map.addLayer(layer2);
-            map.addLayer(layer3);
-			map.addLayer(layer4);
-			map.addLayer(layer5);
-			map.addLayer(layer6);
-            map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-            map.addControl(new OpenLayers.Control.LayerSwitcher() );
-        }
-	</script>
-	<style>
-    body
+        <!-- OpenLayers CSS -->
+        <link rel="stylesheet" href="http://localhost/ol3/dist/ol.css" type="text/css">
+
+        <!-- Custom styles -->
+        <style>
+	 body
    {
     background-color: lightblue;
     background-image: url("...");
@@ -128,23 +29,33 @@
     margin-top: 20px;
    
     }
-    </style>
-  </head>
-  <body>
-    <h1>Map name</h1>
-    <p>text about map</p>
-	<div id="map" class="map"></div>
-	<p></p>
-	  <form class="form-inline">
-      <label>Marker Type &nbsp;</label>
-      <select id="type">
-        <option value="Point">Point</option>
-        <option value="LineString">LineString</option>
-        <option value="Polygon">Polygon</option>
-        <option value="Circle">Circle</option>
-        <option value="None">None</option>
-      </select>
-    </form>
-   
-  </body>
+         
+        </style>
+    </head>
+    <body>
+        <h1>Basic map</h1>
+
+        <div id="map"></div>
+
+        <!-- OpenLayers JS-->
+        <script src="http://localhost/ol3/dist/ol-debug.js" type="text/javascript"></script>
+
+        <!-- App code -->
+        <script>
+          var map = new ol.Map({
+            target: 'map',
+            renderer: 'canvas',
+            layers: [
+              new ol.layer.Tile({
+                source: new ol.source.OSM()
+              })
+            ],
+            view: new ol.View({
+              center: ol.proj.transform([-106.606926, 35.090939], 'EPSG:4326', 'EPSG:3857'),
+              zoom: 6
+            })
+          });
+        </script>
+
+    </body>
 </html>

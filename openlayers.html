@@ -27,7 +27,7 @@
           center: ol.proj.fromLonLat([-106.6056, 35.085]),
           zoom: 10
         })
-	            .tooltip {
+	 .tooltip {
         position: relative;
         background: rgba(0, 0, 0, 0.5);
         border-radius: 4px;
@@ -60,6 +60,9 @@
         border-top-color: #ffcc33;
       }    
       });
+	map.addControl(new OpenLayers.Control.PanZoomBar());
+	map.addControl(new OpenLayers.Control.LayerSwitcher() );
+	    }
     </script>
   </body>
 </html>

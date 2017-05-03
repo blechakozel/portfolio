@@ -2,8 +2,8 @@
   <head>
     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript">
-        var lon = -119.7;
-        var lat = 39.6;
+        var lon = -106.6056;
+        var lat = 35.0853;
         var zoom = 8;
         var map, layer1, layer2, layer3, layer4, layer5, layer6, layer7;
         function init(){

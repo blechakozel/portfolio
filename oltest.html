@@ -5,9 +5,30 @@
 	   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript">
-         var lon = -106.5;
-        var lat = 36;
-        var zoom = 5;
+         var lon = -106.606926;
+        var lat = 35.090939;
+        var zoom = 11;
+	      var typeSelect = document.getElementById('type');
+      var draw; // global so we can remove it later
+      function addInteraction() {
+        var value = typeSelect.value;
+        if (value !== 'None') {
+          draw = new ol.interaction.Draw({
+            source: source,
+            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
+          });
+          map.addInteraction(draw);
+        }
+      }
+      /**
+       * Handle change event.
+       */
+      typeSelect.onchange = function() {
+        map.removeInteraction(draw);
+        addInteraction();
+      };
+      addInteraction();
+
         var map, layer1, layer2, layer3, layer4, layer5, layer6;
         function init(){
             map = new OpenLayers.Map( 'map' );
@@ -124,42 +145,6 @@
         <option value="None">None</option>
       </select>
     </form>
-    <script>
-      var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
-      var source = new ol.source.Vector({wrapX: false});
-      var vector = new ol.layer.Vector({
-        source: source
-      });
-      var map = new ol.Map({
-        layers: [raster, vector],
-        target: 'map',
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 11
-        })
-      });
-      var typeSelect = document.getElementById('type');
-      var draw; // global so we can remove it later
-      function addInteraction() {
-        var value = typeSelect.value;
-        if (value !== 'None') {
-          draw = new ol.interaction.Draw({
-            source: source,
-            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
-          });
-          map.addInteraction(draw);
-        }
-      }
-      /**
-       * Handle change event.
-       */
-      typeSelect.onchange = function() {
-        map.removeInteraction(draw);
-        addInteraction();
-      };
-      addInteraction();
-    </script>
+   
   </body>
 </html>

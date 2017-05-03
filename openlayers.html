@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,14 +43,6 @@
       </select>
     </form>
     <script>
-       var map = new ol.Map({
-        layers: [raster, vector],
-        target: 'map',
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 11
-        })
-      });
       var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
@@ -62,7 +53,17 @@
         source: source
       });
 
-     var typeSelect = document.getElementById('type');
+      var map = new ol.Map({
+        layers: [raster, vector],
+        target: 'map',
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
+          zoom: 11
+        })
+      });
+
+
+      var typeSelect = document.getElementById('type');
 
       var draw; // global so we can remove it later
       function addInteraction() {

@@ -84,12 +84,32 @@
             map.addControl(new OpenLayers.Control.LayerSwitcher() );
         }
 	</script>
-	<style type="text/css">#map {width:600px; height:400px}</style>
+	<style>
+    body
+   {
+    background-color: lightblue;
+    background-image: url("...");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    margin-left: 100px;
+    margin-right:500px;
+    margin-top:80px;
+    margin-bottom:100px;
+}
+     
+      #map {
+    height: 600px;
+    width: 1200px;
+    margin-top: 20px;
+   
+    }
+    </style>
   </head>
   <body onLoad="init()">
     <h1>OpenLayers Sample</h1>
     <p>Basic website showing the functionality of OpenLayers</p>
 	<div id="map"></div>
-	<p>Super basic page to illustrate serving layers. I'm setting up a GeoServer for Julie that will have more detailed maps.</p>
+	<p></p>
   </body>
 </html>

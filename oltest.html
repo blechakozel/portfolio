@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
+         var lon = -106.5;
+        var lat = 36;
+        var zoom = 5;
+        var map, layer1, layer2, layer3, layer4, layer5, layer6;
+        function init(){
+            map = new OpenLayers.Map( 'map' );
+            
+            layer1 = new OpenLayers.Layer.WMS(
+            	"Imagery",
+				"http://edacwms.unm.edu/cgi-bin/mapfiles/bmng", 
+				{
+					layers:'bmng8km,bmng2km,bmng500mA1,bmng500mB1,landsat,doqq05,doqq06,doqq06_gaps'
+				}, 
+				isBaseLayer="True");
+            
+            layer2 = new OpenLayers.Layer.WMS( 
+            	"County Boundaries",
+				"http://gstore.unm.edu/apps/rgis/datasets/97810/services/ogc/wms?", 
+				{
+					layers: '2007fe_35_county00', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+            
+            layer3 = new OpenLayers.Layer.WMS( 
+            	"NM GPS Roads",
+				"http://gstore.unm.edu/apps/rgis/datasets/58292/services/ogc/wms?", 
+				{
+					layers:'gpsrdsddshp', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+           
+			
+			layer4 = new OpenLayers.Layer.WMS( 
+            	"CSG Basins",
+				"http://129.24.63.138/geoserver/wms?", 
+				{
+					layers:'StephenB:CSGBasins', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+            
+			
+			layer5 = new OpenLayers.Layer.WMS( 
+            	"CSG Gages",
+				"http://129.24.63.138/geoserver/wms?", 
+				{
+					layers:'StephenB:CSG_Gages', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+            
+			
+			layer6 = new OpenLayers.Layer.WMS( 
+            	"NHD Streams",
+				"http://129.24.63.138/geoserver/wms?", 
+				{
+					layers:'StephenB:BasinNHDFlow', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+            map.addLayer(layer1);
+            map.addLayer(layer2);
+            map.addLayer(layer3);
+			map.addLayer(layer4);
+			map.addLayer(layer5);
+			map.addLayer(layer6);
+            map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+            map.addControl(new OpenLayers.Control.LayerSwitcher() );
+        }
+	</script>
+	<style type="text/css">#map {width:600px; height:400px}</style>
+  </head>
+  <body onLoad="init()">
+    <h1>OpenLayers Sample</h1>
+    <p>Basic website showing the functionality of OpenLayers</p>
+	<div id="map"></div>
+	<p>Super basic page to illustrate serving layers. I'm setting up a GeoServer for Julie that will have more detailed maps.</p>
+  </body>
+</html>

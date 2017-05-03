@@ -18,76 +18,7 @@
         var lon = -106.6056;
         var lat = 35.085;
         var zoom = 10;
-        var map, layer1, layer2, layer3, layer4, layer5, layer6;
-        function init(){
-            map = new OpenLayers.Map( 'map' );
-            
-            (layer1 = new OpenLayers.Layer.WMS(
-            	"soilFS",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers:'gsmsoilmu_a_co,gsmsoilmu_a_nm,gsmsoilmu_a_ut,gsmsoilmu_a_az'
-				}, 
-				isBaseLayer="True");
-            
-            layer2 = new OpenLayers.Layer.WMS( 
-            	"lijuan_huc",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers: 'huc', 
-					transparent:'True'
-					
-				}, 
-				{
-					isBaseLayer: false
-				});
-            
-            layer3 = new OpenLayers.Layer.WMS( 
-            	"stream_projected",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers:'stream', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer4 = new OpenLayers.Layer.WMS( 
-            	"gage stations",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers:'gage_stations', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer5 = new OpenLayers.Layer.WMS( 
-            	"grids",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers:'grids', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer6 = new OpenLayers.Layer.WMS( 
-            	"vegepolygon",
-				"http://129.24.63.138/geoserver/wms", 
-				{
-					layers:'vegepolygon', 
-					
-				}, 
-				
-					isBaseLayer="True");
-		)
-            map.addLayer(layer1);
-            map.addLayer(layer2);
-            map.addLayer(layer3);
-	    map.addLayer(layer4);
-	    map.addLayer(layer5);
-	    map.addLayer(layer6);
+        
             map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
             map.addControl(new OpenLayers.Control.LayerSwitcher() );
         }

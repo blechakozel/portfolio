@@ -40,7 +40,7 @@
           
           source: new ol.source.ImageWMS({
             url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
-            params: {'LAYERS': 'ws_ablecha:busroutes'},
+            params: {'LAYERS': 'ws_ablecha:busroutes, ws_ablecha:gnisparks'},
             
             serverType: 'geoserver'
           })
@@ -55,6 +55,7 @@
           source: new ol.source.ImageWMS({
             url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
             params: {'LAYERS': 'ws_ablecha:hyp0002'},
+            
             ratio: 1,
             serverType: 'geoserver'
           })
@@ -83,7 +84,8 @@
           
           source: new ol.source.ImageWMS({
             url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
-            params: {'LAYERS': 'ws_ablecha:biketrails'},
+            params: {'LAYERS': 'ws_ablecha:biketrails, ws_ablecha:busroutes, ws_ablecha:Open_Space, ws_ablecha:hyp0002, ws_ablecha:busstops'},
+        
             ratio: 1,
             serverType: 'geoserver'
           })

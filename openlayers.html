@@ -1,14 +1,121 @@
-<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Draw Features</title>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
-    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
-  </head> 
-  <style>
-    body
+    <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script type="text/javascript">
+      var typeSelect = document.getElementById('type');
+      var draw; // global so we can remove it later
+      function addInteraction() {
+        var value = typeSelect.value;
+        if (value !== 'None') {
+          draw = new ol.interaction.Draw({
+            source: source,
+            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
+          });
+          map.addInteraction(draw);
+        }
+      }
+      /**
+       * Handle change event.
+       */
+      typeSelect.onchange = function() {
+        map.removeInteraction(draw);
+        addInteraction();
+      };
+
+        var lon = -106.606926;
+        var lat = 35.090939;
+        var zoom = 11;
+        var map, layer1, layer2, layer3, layer4, layer5, layer6, layer 7;
+
+
+        function init(){
+            map = new OpenLayers.Map( 'map' );
+
+layer1 = new OpenLayers.Layer.WMS(
+            	"Trails",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{
+					layers:'ws_ablecha:biketrails'
+				}, 
+				isBaseLayer="True");
+            
+            layer2 = new OpenLayers.Layer.WMS(
+            	"Trails",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{
+					layers:'ws_ablecha:biketrails'
+				}, 
+				isBaseLayer="True");
+            
+            layer3 = new OpenLayers.Layer.WMS( 
+            	"-",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{
+					layers: 'ws_ablecha:Open_Space', 
+					transparent:'True'
+					
+				}, 
+				{
+					isBaseLayer: false
+				});
+            
+            layer4 = new OpenLayers.Layer.WMS( 
+            	"Parks",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{", 
+				{
+					layers:'ws_ablecha:gnisparks', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer5 = new OpenLayers.Layer.WMS( 
+            	"Bus Routes",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{", 
+				{
+					layers:'ws_ablecha:busroutes', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer6 = new OpenLayers.Layer.WMS( 
+            	"Bus Stops",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{", 
+				{
+					layers:'ws_ablecha:busstops', 
+					transparent:'True'
+				}, 
+				{
+					isBaseLayer: false
+				} );
+			layer7 = new OpenLayers.Layer.WMS( 
+            	"Elevation",
+				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
+				{", 
+				{
+					layers:'ws_ablecha:hyp0002, 
+					
+				}, 
+				
+					isBaseLayer="True");
+            map.addLayer(layer1);
+            map.addLayer(layer2);
+            map.addLayer(layer3);
+			map.addLayer(layer4);
+			map.addLayer(layer5);
+			map.addLayer(layer6);
+                        map.addLayer(layer7);
+            map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+            map.addControl(new OpenLayers.Control.LayerSwitcher() );
+        }
+	</script>
+	<style>
+body
    {
     background-color: lightblue;
     background-image: url("...");
@@ -22,17 +129,21 @@
 }
      
       #map {
-    height: 600px;
-    width: 1200px;
+    height: 500px;
+    width: 1000px;
     margin-top: 20px;
    
     }
-    </style>
+</style>
+  </head>
+    <body onload="init()">
+	<table width="800">
 
-  <body>
-    <h1>Accessing Natural Areas Near or In Albuquerque</h1>
-    <div id="map" class="map"></div>
-    <form class="form-inline">
+    <h1>Accessing Natural Areas In and Near Albuquerque</h1>
+	<h1> Including Public Transportation, Bike Trails, and Walking Paths</h1>
+    <p></p>
+	<div id="map"></div>
+<form class="form-inline">
       <label>Marker Type &nbsp;</label>
       <select id="type">
         <option value="Point">Point</option>
@@ -42,51 +153,10 @@
         <option value="None">None</option>
       </select>
     </form>
-    <script>
-      var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
-
-      var source = new ol.source.Vector({wrapX: false});
-
-      var vector = new ol.layer.Vector({
-        source: source
-      });
-
-      var map = new ol.Map({
-        layers: [raster, vector],
-        target: 'map',
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926, 35.090939]),
-          zoom: 11
-        })
-      });
-
-
-      var typeSelect = document.getElementById('type');
-
-      var draw; // global so we can remove it later
-      function addInteraction() {
-        var value = typeSelect.value;
-        if (value !== 'None') {
-          draw = new ol.interaction.Draw({
-            source: source,
-            type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
-          });
-          map.addInteraction(draw);
-        }
-      }
-
-
-      /**
-       * Handle change event.
-       */
-      typeSelect.onchange = function() {
-        map.removeInteraction(draw);
-        addInteraction();
-      };
-
-      addInteraction();
-    </script>
+	<p>...text....</p> 
+	<p>imore text </p>
+	<p>more text</p>
+  </table>
   </body>
+  
 </html>

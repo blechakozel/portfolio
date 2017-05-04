@@ -1,132 +1,87 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
+    <title>textS</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
-    <style>
-      
-      
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js"></script>
+  </head>
+   <style>
     body
-    
    {
     background-color: lightblue;
     background-image: url("...");
     background-repeat: no-repeat;
     background-position: right top;
     background-attachment: fixed;
-    margin-left: 20px;
-    margin-right:20px;
+    margin-left: 100px;
+    margin-right:500px;
     margin-top:80px;
     margin-bottom:100px;
 }
      
       #map {
-    height: 600px;
-    width: 1100px;
-    
+    height: 500px;
+    width: 1000px;
+    margin-top: 20px;
+   
     }
     </style>
-    <script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
-    <title>OpenLayers example</title>
-  </head>
- 
   <body>
-  <center>
-    <h1>Accessing Natural Areas In and Near Albuquerque</h1>
-	<h2>Including Bus lines, Bike Trails, and Foot Paths</h2>
-    </center>
-    <p></p>
-	<div id="map"></div>
-	<p>text</p> 
-	<p>text</p>
-	<p>text</p>
- 
     <div id="map" class="map"></div>
-    <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
+    <script>
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Image({
+          
+          source: new ol.source.ImageWMS({
+            url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
+            params: {'LAYERS': 'ws_ablecha:busroutes'},
+            ratio: 1,
+            serverType: 'geoserver'
           })
-        ],
+        })
+      ];
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Image({
+          
+          source: new ol.source.ImageWMS({
+            url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
+            params: {'LAYERS': 'ws_ablecha:hyp0002'},
+            ratio: 1,
+            serverType: 'geoserver'
+          })
+        })
+      ];
+      
+       var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Image({
+          
+          source: new ol.source.ImageWMS({
+            url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
+            params: {'LAYERS': 'ws_ablecha:Open_Space'},
+            ratio: 1,
+            serverType: 'geoserver'
+          })
+        })
+      ];
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
         view: new ol.View({
-          center: ol.proj.fromLonLat([-106.606926,35.090939]),
+          center: [-106.606926, 35.090939],
           zoom: 11
         })
       });
-      var map, layer1, layer2, layer3, layer4, layer5, layer6;
-      function init(){
-            map = new OpenLayers.Map( 'map' );
-            
-            layer1 = new OpenLayers.Layer.WMS(
-            	"Countours Lines",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers:'ws_ablecha:hyp0002'
-				}, 
-				isBaseLayer="True");
-            
-            layer2 = new OpenLayers.Layer.WMS( 
-            	"Open Space Areas",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers: 'ws_ablecha:Open_Space', 
-					transparent:'True'
-					
-				}, 
-				{
-					isBaseLayer: false
-				});
-            
-            layer3 = new OpenLayers.Layer.WMS( 
-            	"stream_projected",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers:'stream', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer4 = new OpenLayers.Layer.WMS( 
-            	"gage stations",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers:'gage_stations', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer5 = new OpenLayers.Layer.WMS( 
-            	"grids",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers:'grids', 
-					transparent:'True'
-				}, 
-				{
-					isBaseLayer: false
-				} );
-			layer6 = new OpenLayers.Layer.WMS( 
-            	"vegepolygon",
-				"http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms", 
-				{
-					layers:'vegepolygon', 
-					
-				}, 
-				
-					isBaseLayer="True");
-            map.addLayer(layer1);
-            map.addLayer(layer2);
-            map.addLayer(layer3);
-			map.addLayer(layer4);
-			map.addLayer(layer5);
-			map.addLayer(layer6);
-            map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-            map.addControl(new OpenLayers.Control.LayerSwitcher() );
-        }
     </script>
   </body>
 </html>
-

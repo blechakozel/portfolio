@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>textS</title>
+    <title>Milestone 13 Openlayers Map: Geog 484 Spring 2017</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
@@ -23,14 +23,32 @@
      
       #map {
     height: 600px;
-    width: 1000px;
+    width: 600px;
     margin-top: 20px;
    
     }
     </style>
   <body>
+  <h1>Natural Areas In and Near Albuquerque</h1>
+  <p> This map and included feartures can be used to help access natural areas in and near Albuquerque for recreation and fitness reasons.</p>
+  <p>Features and locations include:</p>
+  
+  
+  <ol>
+  <li>Bike Routues</li>
+  <li>Open Space</li>
+  <li>Bus Routes</li>
+  <li>Bus Stops</li>
+  <li>Walking Paths</li>
+  </ol>
+  
     <div id="map" class="map"></div>
+    <p>Albuquerque and Surrounding Areas</p>
     <script>
+   
+
+
+
     var map, layer1, layer2, layer3, layer4, layer5, layer6;
       var layers = [
         new ol.layer.Tile({
@@ -44,7 +62,9 @@
             
             serverType: 'geoserver'
           })
-        })
+           
+          })
+       
       ];
       var layers = [
         new ol.layer.Tile({
@@ -104,6 +124,23 @@
       
          
       });
+      var layersOSM = new ol.layer.Group({
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+        })
+    ]
+});
+
+var layersMQ = new ol.layer.Group({
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.MapQuest({layer: 'osm'})
+        })
+    ]
+});
+
+
     </script>
   </body>
 </html>

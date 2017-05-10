@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Exam Question 7 map</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js"></script>
+  </head>
+   <style>
+    body
+   {
+    background-color: lightblue;
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    margin-left: 100px;
+    margin-right:500px;
+    margin-top:80px;
+    margin-bottom:100px;
+}
+     
+      #map {
+    height: 500px;
+    width: 800px;
+    margin-top: 20px;
+   
+    }
+    </style>
+  <body>
+  <h1>Openlayers Client Displaying Two Styled Layers</h1>
+  
+  <p>Data includes:</p>
+   <l>
+  <li>Contour Lines: 4 color categories, yellow to read, with broader line weight</li>
+  <li>Albuquerque Streets displaying most major road types in a blue color gradation</li>
+  
+  </l>
+  
+  
+ 
+  
+    <div id="map" class="map"></div>
+    <p>Final Map</p>
+    <script>
+   
+    var map
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Image({
+          
+          source: new ol.source.ImageWMS({
+            url: 'http://mapper.internetmapping.net:8081/geoserver/ws_ablecha/wms',
+            params: {'LAYERS': 'ws_ablecha:styled_tgr, ws_ablecha:styled_A5'},
+            
+            serverType: 'geoserver'
+          })
+           
+          })
+       
+      ];
+       
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-106.5687, 35.065]),
+          zoom: 13
+     
+  
+          
+        })
+      
+         
+      });
+    
+    </script>
+  </body>
+</html>
